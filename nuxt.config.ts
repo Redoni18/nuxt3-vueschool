@@ -1,5 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  modules: ['@nuxtjs/sanity'],
+  sanity: {
+    projectId: 'ld2ljnmz',
+    dataset: 'production',
+    // Other configuration options if needed
+  },
   app: {
     head: {
       charset: 'utf-8',

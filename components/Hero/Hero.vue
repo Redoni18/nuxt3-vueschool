@@ -6,10 +6,10 @@
                     Complete <span>Vue.js training</span> solutions for companies
                 </h1>
                 <p class="description">
-                    Training solutions designed for companies, agencies and organisations with developers using or who are considering using the Vue.js framework
+                    {{ heroSectionInfo.paragraphContent }}
                 </p>
             
-                <CommonsButton variant="primary" buttonText="Talk to Sales" />
+                <CommonsButton variant="primary" :buttonText="heroSectionInfo.buttonText" />
             </div>
             <img loading="lazy" class="image-container" src="../../assets/Hero-Image.svg" alt="Nuxt Hero Image">
         </main>
@@ -24,6 +24,13 @@
 <script setup>
 import AboutCard from './components/AboutCard.vue';
 import Brands from './components/Brands.vue';
+
+const heroSectionInfo = ref(null)
+
+const query = groq`*[_type == 'hero-section']`
+const { data } = await useSanityQuery(query)
+heroSectionInfo.value = data._rawValue[0]
+
 </script>
 
 <style scoped lang="postcss">
