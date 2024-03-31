@@ -10,11 +10,13 @@ html {
 }
 
 body {
+    width: 100%;
     background-color: #212435;
 }
 
 #__nuxt {
     height: 100vh;
+    width: 100%;
     background-color: #212435;
     box-sizing: border-box;
     padding: 0;

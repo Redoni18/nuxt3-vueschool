@@ -1,7 +1,5 @@
 <template>
-    <button :class="computedClasses" @click="$emit('click')">
-      <slot></slot>
-    </button>
+    <button :class="computedClasses" @click="$emit('click')">{{ buttonText }}</button>
 </template>
 
 <script setup lang="ts">
@@ -12,6 +10,10 @@
         variant: {
             type: String as PropType<ButtonVariant>,
             default: 'primary'
+        },
+        buttonText: {
+            type: String,
+            required: true
         }
     })
 
@@ -20,7 +22,7 @@
             'py-5 px-10 rounded-[10px]',
             {
                 'bg-[#0BD88F] text-[#212435] font-medium text-base leading-[18.96px]': buttonProps.variant === 'primary',
-                'bg-gray-300 hover:bg-gray-400 text-[#0BD88F]': buttonProps.variant === 'default',
+                'text-[#0BD88F]': buttonProps.variant === 'default',
                 'outline-border text-[#0BD88F]': buttonProps.variant === 'outline',
             },
         ];
