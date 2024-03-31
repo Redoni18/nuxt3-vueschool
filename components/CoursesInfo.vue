@@ -6,20 +6,30 @@
         </div>
         <div class="courses-stats">
             <div class="video-number-container">
-                <p class="stat-number gradient-text">763</p>
+                <p class="stat-number gradient-text">{{courseInfoSection?.videoLessonsNumber}}</p>
                 <p class="stat-details">Video Lessons</p>
             </div>
             <div class="courses-number-container">
-                <p class="stat-number gradient-text">40</p>
+                <p class="stat-number gradient-text">{{courseInfoSection?.coursesNumber}}</p>
                 <p class="stat-details">Courses</p>
             </div>
             <div class="hours-number-container">
-                <p class="stat-number gradient-text">64</p>
+                <p class="stat-number gradient-text">{{ courseInfoSection?.hoursNumber }}</p>
                 <p class="stat-details">15 hours</p>
             </div>
         </div>
     </div>
 </template>
+
+<script setup lang="ts">
+import type { PlatformStatsType } from '~/types/types';
+const courseInfoSection = ref<PlatformStatsType | null>(null);
+
+const query = groq`*[_type == 'platform-stats']`;
+const { data } = await useSanityQuery<PlatformStatsType[]>(query);
+courseInfoSection.value = data?.value ? data.value[0] : null
+
+</script>
 
 <style scoped lang="postcss">
 .courses-info-container {

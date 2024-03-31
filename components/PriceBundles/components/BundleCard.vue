@@ -2,38 +2,18 @@
     <div class="pricing-bundle-card">
       <header class="bundle-header">
         <img loading="lazy" src="../../../assets/BundleIcon.svg" class="bundle-plan-icon" alt="Bundle Icon"/>
-        <h2 class="bundle-plan-title">Bundle Plan Title</h2>
+        <h2 class="bundle-plan-title">{{bundleProps.bundleType}}</h2>
       </header>
   
       <main class="bundle-body">
         <p class="intro-text">Includes 1 year access to:</p>
         <div class="bundle-specifics">
           <ul class="bundle-specifics-list">
-            <li class="specific-list-item">
+            <li v-for="(packageOffer, index) in bundleProps.packageOfferings" :key="index" :class="{ 'specific-list-item': true, 'specific-list-item-disabled': !packageOffer.appliesToPackage }">
               <div class="checkmark-item-container">
-                <img loading="lazy" alt="Checkmark Icon" src="../../../assets/CheckMark.svg" class="checkmark" />
-                <span class="bundle-offering">All Video Courses </span>
-              </div>
-              <img src="../../../assets/InfoIcon.svg" class="info-icon" alt="Information Icon">
-            </li>
-            <li class="specific-list-item">
-              <div class="checkmark-item-container">
-                <img loading="lazy" alt="Checkmark Icon" src="../../../assets/CheckMark.svg" class="checkmark" />
-                <span class="bundle-offering">All Video Courses </span>
-              </div>
-              <img src="../../../assets/InfoIcon.svg" class="info-icon" alt="Information Icon">
-            </li>
-            <li class="specific-list-item">
-              <div class="checkmark-item-container">
-                <img loading="lazy" alt="Checkmark Icon" src="../../../assets/CheckMark.svg" class="checkmark" />
-                <span class="bundle-offering">All Video Courses </span>
-              </div>
-              <img src="../../../assets/InfoIcon.svg" class="info-icon" alt="Information Icon">
-            </li>
-            <li class="specific-list-item">
-              <div class="checkmark-item-container">
-                <img loading="lazy" alt="Checkmark Icon" src="../../../assets/CheckMark.svg" class="checkmark" />
-                <span class="bundle-offering">All Video Courses </span>
+                <img v-if="packageOffer.appliesToPackage" loading="lazy" alt="Checkmark Icon" src="../../../assets/CheckMark.svg" class="checkmark" />
+                <img v-else loading="lazy" alt="Cross Icon" src="../../../assets/CrossIcon.svg" class="crossmark" />
+                <span class="bundle-offering">{{ packageOffer.packageOffering }}</span>
               </div>
               <img src="../../../assets/InfoIcon.svg" class="info-icon" alt="Information Icon">
             </li>
@@ -47,7 +27,22 @@
       </footer>
     </div>
   </template>
-  
+
+<script setup lang="ts">
+import type { BundleType, BundleOffers } from '~/types/types';
+
+
+const bundleProps = defineProps({
+    bundleType: {
+        type: String as () => BundleType,
+        required: true
+    },
+    packageOfferings: {
+        type: Array as () => BundleOffers[],
+        required: true
+    }
+})
+</script>
 
 <style scoped land="postcss">
 .pricing-bundle-card {
@@ -92,5 +87,9 @@
 
 .bundle-footer {
     @apply flex flex-col w-full justify-center items-center gap-3;
+}
+
+.specific-list-item-disabled {
+  @apply opacity-50;
 }
 </style>
